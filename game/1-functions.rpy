@@ -764,7 +764,7 @@ init -999 python:
             for element in position:
                 position_list += element + ","
             position_list = position_list[:-1]
-            renpy.show('yuri_stand', at_list = position, zorder = 12)
+            renpy.show("yuri_stand", at_list = position, zorder = 12) #something here causes an error when changing in yuri customisation
             #exec('renpy.show("yuri_stand", at_list = [' + position_list + '], zorder = 12)')#at_list = position, zorder = 12)
         else:
             return

@@ -276,7 +276,7 @@ label playername:
         'placeholder', 'Ketchup', 'b1g', 'Spooky', 'OFFLUCK', 'Bryce', 'Belwynn', 'NullCase', 'Ultima', 'Darkskull', 'alura', 'Alura', 'Dandy', 'dandy', 'kj', 'KJ',
         'Sariel', 'Kurisu', 'Buglax', 'jmo', 'j.m.o', 'Prof JMO', 'tuna', 'Tuna', 'JFirestone', 'jfirestone', 'Leo', 'leo', 'Lethe', 'lethe', 'SynfulPerfect', 'Synful',
         'synfulperfect', 'synful', 'Yuri\'s Husband', 'YH', 'YuriHuggu', 'Corgi', 'Nash', 'Crystalline', 'Havoc', 'huangstilk', 'Hugh Mungus',
-        'Icicle', 'imunkaea', 'jae', 'jaebot', 'PalaKeda', 'Rice Crispies', 'Delstraw']:
+        'Icicle', 'imunkaea', 'jae', 'jaebot', 'PalaKeda', 'Rice Crispies', 'Delstraw', 'Cap. Torres']: #Hey this is mil_mi24, I'm assuming this is the dev pass names so I'm adding my name to the list :) #message me if this is a problem else delete this comment and inform me
         if dev_access:
             call magicpass
         else:
