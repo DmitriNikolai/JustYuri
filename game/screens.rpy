@@ -2070,7 +2070,7 @@ default temp_code = "A-AAAAA-AAAA"
 
 default headList = ["A","B"]
 #0 = forward facing
-default timecycle0List = ["_sunrise","_day","_sunset","_night"]#["","_sunrise","_day","_sunset","_night"]
+default timecycleList = ["_sunrise","_day","_sunset","_night"]#["","_sunrise","_day","_sunset","_night"] why would the timecycle only be available for head 0?
 default glasses0List = ["nothing", "glasses_1", "glasses_2"]
 default neko0List = ["nothing", "cat_ears", "raccoon_ears"]
 
@@ -2085,6 +2085,12 @@ default mouth1List = ["A"]
 default eyebrows1List = ["A"]
 default blush1List = ["A","B"]
 default cry1List = ["A"]
+#2 = standing #the yuri_stand uses 0 list, causing array index overflow
+default eyes2List = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N"]
+default mouth2List = ["A","B","C","D","E","F","G","H","I","J","K","L"]
+default eyebrows2List = ["A","B","C","D","E","F","G"]
+default blush2List = ["A"]
+default cry2List = ["A"]
 
 default upLList = ["A"]
 default lowLList = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"]#,,"P","Q","R","S", "T"]
@@ -2122,30 +2128,42 @@ screen make_expression():
                     iterator = globals().get(iterator_type + "Iterator")
                     if iterator is None:
                         return 0  # or handle the error as you see fit
-
+                    
                     iterator = (iterator + step) % len(globals().get(list_type))
                     globals()[iterator_type + "Iterator"] = iterator
                     return iterator
 
-                if type in ["upL", "lowL", "upR", "lowR", "head", "costume", "sprite", "position", "botharms"]:
+                if type in ["upL", "lowL", "upR", "lowR", "head", "costume", "sprite", "position", "botharms","timecycle"]: #time cycle didnt change for head 1
                     update_iterator(type, type + "List", step_size)
-
+                elif type in ["glasses","neko"]:
+                    if  spriteList[spriteIterator] != "yuri_stand":
+                        update_iterator(type, type + "0" + "List", step_size) 
                 else:
                     head_iterator = globals().get("headIterator")
                     if head_iterator is None:
                         head_iterator = 0
-                    update_iterator(type, type + str(head_iterator) + "List", step_size)
 
-                # Ensure all iterators are within bounds. Refactor this loop for efficiency
-                for element in ["head", "eyes", "mouth", "eyebrows", "blush", "cry", "upL", "lowL", "upR", "lowR", "costume", "sprite", "position"]:
-                    if element in ["upL", "lowL", "upR", "lowR", "head", "costume", "sprite", "position", "botharms"]:
-                        globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + "List"))
+                    #add support for standing yuri, maybe make standing yuri a head sprite? or seperate button for vanilla ddlc sprites 
+                    if spriteList[spriteIterator] == "yuri_stand":
+                        update_iterator(type, type + str(2) + "List", step_size)
                     else:
-                        head_iterator = globals().get("headIterator")
-                        if head_iterator is None:
-                            head_iterator = 0
+                        update_iterator(type, type + str(head_iterator) + "List", step_size)
 
-                        globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + str(head_iterator) + "List"))
+                # Ensure all iterators are within bounds. Refactor this loop for efficiency # this only matters if we change from different "sets" of lists, head 1, head 2 and now yuri standing, where the same list can be different depending on the set.
+                if type in ["sprite","head"]:
+                    for element in ["head", "eyes", "mouth", "eyebrows", "blush", "cry", "upL", "lowL", "upR", "lowR", "costume"]: #removed head, sprite and position as these are being changed by player in situation where bounds must be controlled
+                        if element in ["head", "upL", "lowL", "upR", "lowR", "costume", "position", "botharms"]:
+                            globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + "List"))
+                        else:
+                            head_iterator = globals().get("headIterator")
+                            if head_iterator is None:
+                                head_iterator = 0
+                            if spriteList[spriteIterator] == "yuri_stand":
+                                globals()["headIterator"] = 0
+                                update_iterator(element, element + str(2) + "List", 0)
+                            else:
+                                update_iterator(element, element + str(head_iterator) + "List", 0)
+                            #globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + str(head_iterator) + "List"))
 
                 if type == "costume":
                     #This code determine valid values for coustumes based upon timecyle0List
@@ -2189,7 +2207,7 @@ screen make_expression():
 
                 if tc_class.bg_timecycle[persistent.bg]:
                     renpy.log(1)  # Use renpy.log instead of print_debug
-                    current_timecycle_marker = timecycle0List[timecycleIterator]
+                    current_timecycle_marker = timecycleList[timecycleIterator]
                 else:
                     renpy.log(2) # Use renpy.log instead of print_debug
                     current_timecycle_marker = "_space"

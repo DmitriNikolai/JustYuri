@@ -73,7 +73,7 @@ label ch30_loop:
     window hide(config.window_hide_transition)
 
     if renpy.random.randint(1, 100) <= 5: # 5% chance to trigger
-         call yuri_check_atmosphere
+        call yuri_check_atmosphere
 
 label ch30_waitloop:
     python:
