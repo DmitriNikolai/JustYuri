@@ -215,7 +215,7 @@ label a1:
             y "Isn't it obvious how I should feel by now?!"
     return
 
-label a2:#flag active skip overwritten
+label a2: #you look nice today [Yuri nickname] #flag active skip overwritten
     $ show_chr("A-AAGAA-AAAA")
     $ show_chr("A-BBGBA-AAAA")
     y "Oh. Y-You really think so? Well, thank you! I-I think you, always look nice... [player]."
@@ -302,7 +302,7 @@ label a3: #"How do you feel about our relationship so far?"
         y "Don't worry. I'll get used to it eventually."
     return
 
-label a4:
+label a4:  #what are you thinking about?
     python:
         call_dialogue()
     return

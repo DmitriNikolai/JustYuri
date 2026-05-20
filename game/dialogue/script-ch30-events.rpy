@@ -364,8 +364,11 @@ label yuriwakeup:
     show yuri_sleepy
     y "That was quite a relaxing experience."
     pause 3.0
+    show black zorder 100 with Dissolve(1.0)
     hide yuri_sleepy
     $hide_yuri_sit = False
+    $show_chr("A-AAAAA-AAAA") #this was missing making Yuri dissapear after sleeping. Someone who knows more about Yuri expressions choose a better one please.
+    hide black with Dissolve(0.5)
     y "Now then, what would you like to do [player]?"
     $persistent.HDY = False
     $boopable = True

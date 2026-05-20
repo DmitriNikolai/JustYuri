@@ -2047,8 +2047,8 @@ default botharmsIterator = 0
 default temp_code = "A-AAAAA-AAAA"
 
 default headList = ["A","B"]
+default timecycleList = ["_sunrise","_day","_sunset","_night"]#Why would the way yuri faces affect the time of day available? its just a backdrop... #["","_sunrise","_day","_sunset","_night"]
 #0 = forward facing
-default timecycle0List = ["_sunrise","_day","_sunset","_night"]#["","_sunrise","_day","_sunset","_night"]
 default glasses0List = ["nothing", "glasses_1", "glasses_2"]
 default neko0List = ["nothing", "cat_ears", "raccoon_ears"]
 
@@ -2058,12 +2058,27 @@ default eyebrows0List = ["A","B","C","D","E","F","G"]
 default blush0List = ["A","B","C"]
 default cry0List = ["A","B"]
 #1 = side facing
+default glasses1List = ["nothing", "glasses_1", "glasses_2"] #glasses and neko sprites for side facing perchance? just future proofing for this sprite incase its needed in the future
+default neko1List = ["nothing", "cat_ears", "raccoon_ears"]
+
 default eyes1List = ["A","B"]
 default mouth1List = ["A"]
 default eyebrows1List = ["A"]
 default blush1List = ["A","B"]
 default cry1List = ["A"]
+#2 = standing #using #2 here doesn't really fit as #0 and #1  refer to her head sprite but we still have a different set of arrays for the standing sprite
+default glasses2List = ["nothing"] #glasses and neko sprites for side facing perchance? just future proofing for this sprite incase its needed in the future
+default neko2List = ["nothing"]
 
+default eyes2List = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N"]
+default mouth2List = ["A","B","C","D","E","F","G","H","I","J","K","L"]
+default eyebrows2List = ["A","B","C","D","E","F","G"]
+default blush2List = ["A"]
+default cry2List = ["A"]
+default costume2List = [
+    "school", "sweater"#, "lab", "valentines", "pyjama", "pinkdress"
+]
+#generic arrays
 default upLList = ["A"]
 default lowLList = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"]#,,"P","Q","R","S", "T"]
 default upRList = ["A"]
@@ -2105,25 +2120,51 @@ screen make_expression():
                     globals()[iterator_type + "Iterator"] = iterator
                     return iterator
 
-                if type in ["upL", "lowL", "upR", "lowR", "head", "costume", "sprite", "position", "botharms"]:
+                #increment iterator for correct arrays by step_size
+                if type in ["upL", "lowL", "upR", "lowR", "head", "costume", "sprite", "position", "botharms", "timecycle"]: 
                     update_iterator(type, type + "List", step_size)
+                elif type in ["glasses","neko"]:
+                    head_iterator = globals().get("headIterator")
+                    if head_iterator is None:
+                        head_iterator = 0
+                    if  spriteList[spriteIterator] != "yuri_stand":
+                        update_iterator(type, type + head_iterator + "List", step_size) 
 
                 else:
                     head_iterator = globals().get("headIterator")
                     if head_iterator is None:
                         head_iterator = 0
-                    update_iterator(type, type + str(head_iterator) + "List", step_size)
-
-                # Ensure all iterators are within bounds. Refactor this loop for efficiency
-                for element in ["head", "eyes", "mouth", "eyebrows", "blush", "cry", "upL", "lowL", "upR", "lowR", "costume", "sprite", "position"]:
-                    if element in ["upL", "lowL", "upR", "lowR", "head", "costume", "sprite", "position", "botharms"]:
-                        globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + "List"))
+                    if spriteList[spriteIterator] == "yuri_stand":
+                        update_iterator(type, type + str(2) + "List", step_size)
                     else:
-                        head_iterator = globals().get("headIterator")
-                        if head_iterator is None:
-                            head_iterator = 0
+                        update_iterator(type, type + str(head_iterator) + "List", step_size)
 
-                        globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + str(head_iterator) + "List"))
+                # Ensure all iterators are within bounds. Refactor this loop for efficiency #This loop is only useful when were switching between "sets" of the relevant arrays. update_iterator already ensures this
+                if type in ["sprite","head","costume"]:
+                    for element in ["eyes", "mouth", "eyebrows", "blush", "cry", "upL", "lowL", "upR", "lowR", "costume", "glasses", "neko"]:
+                        if element == "costume":
+                            if spriteList[spriteIterator] == "yuri_stand":
+                                update_iterator(element, element + str(2) + "List", 0)
+                                #globals()["costumeIterator"] = globals().get("costumeIterator") % len(globals().get("costume2List"))
+                            else:
+                                update_iterator(element, element + "List", 0)
+                                #globals()["costumeIterator"] = globals().get("costumeIterator") % len(globals().get("costumeList"))
+                            
+ 
+                        elif element in ["upL", "lowL", "upR", "lowR"]: #lists not related to a set. element + "List"
+                                update_iterator(element, element + "List", 0)
+                            #globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + "List"))
+                        else:                                               #lists related to a set. element + 1 or 2 + "List" #eyes glasses eyebrows blush cry glasses and neko
+                            head_iterator = globals().get("headIterator")
+                            if head_iterator is None:
+                                head_iterator = 0
+                            if spriteList[spriteIterator] == "yuri_stand":
+                                globals()["headIterator"] = 0
+                                update_iterator(element, element + str(2) + "List", 0)
+                            else:
+                                update_iterator(element, element + str(head_iterator) + "List", 0)
+
+                            #globals()[element + "Iterator"] = globals().get(element + "Iterator") % len(globals().get(element + str(head_iterator) + "List"))
 
                 if type == "costume":
                     #This code determine valid values for coustumes based upon timecyle0List
@@ -2163,7 +2204,7 @@ screen make_expression():
 
                 if tc_class.bg_timecycle[persistent.bg]:
                     renpy.log(1)  # Use renpy.log instead of print_debug
-                    current_timecycle_marker = timecycle0List[timecycleIterator]
+                    current_timecycle_marker = timecycleList[timecycleIterator]
                 else:
                     renpy.log(2) # Use renpy.log instead of print_debug
                     current_timecycle_marker = "_space"

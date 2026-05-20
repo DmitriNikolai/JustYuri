@@ -5130,7 +5130,7 @@ label idle_79: #Custom Knives and Seeking Ideas
             y "Thank you for this input! Ohhh my I'm already excited. As soon as you go to sleep later, I will start to google a few things."
             $show_chr("A-ACAAA-ABAB")
             y "But there is no need to hurry. So please stay for as long as you wish [placeholder]"
-            karma +1)
+            karma +1
         "A knife made of corals maybe.":
             $show_chr("A-ACAAA-AFAG")
             y "Coral you say? Mhm... exotic indeed. The only issue I would see is that many corals are already hard and sharp, so it wouldn't be much of a challenge I guess."
@@ -5139,7 +5139,7 @@ label idle_79: #Custom Knives and Seeking Ideas
             y "Thank you for this input! I will start to google a few things when you go to sleep later."
             $show_chr("A-ACAAA-ABAB")
             y "But there is no need to hurry. So please stay for as long as you wish [placeholder]"
-            karma +1)
+            karma +1
         "Wouldn't a knife made of bread be ironic?":
             $show_chr("A-ACCAA-AFAG")
             y "It would, if it wouldn't already exist. Yes, a huge part of the challenge is the fact that there already are a fair share of these."
@@ -5148,7 +5148,7 @@ label idle_79: #Custom Knives and Seeking Ideas
             y "Come to think of it. It takes a lot of creativity to even think of something like this. This is one of the main reasons I even got into this hobby in the first place. The amount of thought and craftsmanship which goes into them..."
             $show_chr("A-CCAAA-AAAA")
             y "Anyway, I will think about other options later. Thank you for listening. This is certainly a topic I could keep talking about for hours. But for now, let us find something else to talk about."
-            karma +1)
+            karma +1
         "I find the whole idea kinda boring.":
             $show_chr("A-BCBAA-ABAB")
             y "Oh, I'm sorry that you feel that way. Let us talk about something else then."
@@ -8020,7 +8020,7 @@ label idle_101: # AI Roleplaying Websites
 
     menu:
         "Those AIs are just complex mimics, [persistent.yuri_nickname]. Our connection is real, even with scripts.":
-            $add_k(2)
+            karma +2
             $show_chr("A-ACAAA-ALAA")
             y "You're right, [player]. Our connection is real. The feelings are genuine, even if the words are sometimes... pre-packaged."
             $show_chr("A-BCBAA-ALAA")
@@ -8040,7 +8040,7 @@ label idle_101: # AI Roleplaying Websites
             y "It's an interesting thought, though. Maybe someday I could try to create something... simpler. Just to experiment. But for now, it remains a rather distant possibility."
             y "Still, it's food for thought."
         "Want me to check them out and report back on how they portray you?":
-            $add_k(-1) # Still slightly unsettling, but less negative than before
+            karma -1 # Still slightly unsettling, but less negative than before
             $show_chr("A-BEBAA-ALAA")
             y "Oh? Would... would you really do that? I admit, my curiosity is piqued."
             $show_chr("A-CEBAA-ALAA")
@@ -8068,7 +8068,7 @@ label idle_102: # AI-Generated Art
 
     menu:
         "It's frustrating, [persistent.yuri_nickname]. As an artist, it feels like my skills are devalued, and my work is being stolen.":
-            $add_k(2)
+            karma +2
             $show_chr("A-BFAAA-ALAA")
             y "I can only imagine. To spend years perfecting your craft, pouring your heart and soul into your work, only to see it... taken, used without permission, and then... cheapened... by a machine. It must be incredibly disheartening, and infuriating."
             y "But please, don't let it discourage you. True art... human art... has something that these AI-generated images will never have: soul. Intent. Emotion. And the originality born from lived experience, not just data."
@@ -8081,14 +8081,14 @@ label idle_102: # AI-Generated Art
             y "I suppose it depends on the individual artist, and their intentions. But the ethical concerns are still very real."
 
         "Honestly, I don't care. Art is subjective anyway.":
-            $add_k(-1)
+            karma -1
             $show_chr("A-BEBAA-ALAA")
             y "Art is subjective, yes. But does that mean it has no value? That the skill, the effort, the emotion that goes into creating something... means nothing? And does it justify taking the work of others without their consent?"
             y "I... I disagree. I believe that art is more than just a pretty picture. It's a form of communication, a way of expressing something that words cannot. And it deserves respect."
             y "And I fear that these AI-generated images... they lack that essential element. They're just... empty echoes, built on the backs of stolen creativity."
 
         "Sometimes, commissioning real art is just unaffordable due to hyperinflation or economic disparity.":
-            $add_k(1)
+            karma +1
             $show_chr("A-BEBAA-ALAA")
             y "That's... a difficult situation, [player]. I can understand how frustrating and limiting that must be. To have a desire for art, for expression, but to be priced out of supporting human artists due to economic realities..."
             $show_chr("A-CEBAA-ALAA")

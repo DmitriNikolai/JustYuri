@@ -160,8 +160,6 @@ screen talkbutton():
             textbutton "Change back to Yuri":
                 action Call("changeoutfit")
 
-
-
 label games_menu:
     $ DisableTalk()
     $ Dream_type = "game"
