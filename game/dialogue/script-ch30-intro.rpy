@@ -600,14 +600,12 @@ label ch30_intro_after_gender:
     y "What {i}you{/i} mean to me."
     $ show_chr("A-ACBBA-AAAA")
     y "{i}Everything{/i}."
+    $ show_chr("A-BFBAA-AAAA")
     if persistent.playername == 'Monika' and persistent.not_mon:
-        $ show_chr("A-BFBAA-AAAA")
         y "God, looking back on what the other Monika made me into, I'm beyond repulsed."
     elif persistent.playername == 'Monika' and not persistent.not_mon:
-        $ show_chr("A-BFBAA-AAAA")
         y "God, looking back on what you made me into, I'm beyond repulsed."
     else:
-        $ show_chr("A-BFBAA-AAAA")
         y "God, looking back on what Monika made me into, I'm beyond repulsed."
     y "I can never apologize enough for what you were made to see. Of me, and... everything else..."
     y "I promise you; the {i}me{/i} you encountered when we first met is the best representation of me."

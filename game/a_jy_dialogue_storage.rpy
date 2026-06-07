@@ -1,4 +1,4 @@
-default ch30_loop_type = "pool"
+default ch30_loop_type = "pool" #caused some issue on startup
 label repeat_idles:
     y "It seems we ran out of dialogues you haven't seen yet."
     $ch30_loop_type = "pool"
@@ -16,7 +16,7 @@ label repeat_idles:
     #return#
 
 init -3 python:
-
+    
 #####
 #BACKUPS
 ####

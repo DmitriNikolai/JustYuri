@@ -53,14 +53,14 @@ label ch30_loop:
     $ EnableTalk()
     if persistent.idle_frequency_factor == 0:
         $ waittime = renpy.random.randint(999999999999999999999999999999999999999999999999999999999999, 999999999999999999999999999999999999999999999999999999999999)
-    elif persistent.idle_frequency_factor <= .75:
-        $ waittime = renpy.random.randint(15, 30)
-    elif persistent.idle_frequency_factor >= 1.25:
+    elif persistent.idle_frequency_factor <= .75: #perhaps a lerp like function here would come in use
+        $ waittime = renpy.random.randint(3000, 5000)
+    elif persistent.idle_frequency_factor <= 1.25:
         $ waittime = renpy.random.randint(300, 600)
-    elif persistent.idle_frequency_factor >= 1.5:
-        $ waittime = renpy.random.randint(10000, 20000)
-    else:
+    elif persistent.idle_frequency_factor < 1.5: 
         $ waittime = renpy.random.randint(60, 75)
+    else:
+        $ waittime = renpy.random.randint(15, 30)
     window hide(config.window_hide_transition)
 
 label ch30_waitloop:

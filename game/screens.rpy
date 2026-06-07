@@ -1120,9 +1120,9 @@ init -501 screen preferences():
 
                 vbox:
                     if persistent.idle_frequency_factor <= 0.75:
-                        label _("Idle Frequency: Frequent")
-                    elif persistent.idle_frequency_factor >= 1.25:
                         label _("Idle Frequency: Hesitant")
+                    elif persistent.idle_frequency_factor >= 1.25:
+                        label _("Idle Frequency: Frequent")
                     else:
                         label _("Idle Frequency: Normal")
                     bar value FieldValue(persistent, "idle_frequency_factor", 1.3, offset=0.5, step=0.1):
@@ -2128,7 +2128,7 @@ screen make_expression():
                     if head_iterator is None:
                         head_iterator = 0
                     if  spriteList[spriteIterator] != "yuri_stand":
-                        update_iterator(type, type + head_iterator + "List", step_size) 
+                        update_iterator(type, type + str(head_iterator) + "List", step_size) 
 
                 else:
                     head_iterator = globals().get("headIterator")

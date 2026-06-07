@@ -135,6 +135,7 @@ label chess:
 
 label chess_results:
     $ renpy.free_memory()
+    $ ui.close() #An error asked me to put this here, i have no idea what caused the problem, perhaps chessboard rendering
     if _return == DRAW:
         y "Looks like it's a draw. Well played, [player]."
         jump ch30_loop
